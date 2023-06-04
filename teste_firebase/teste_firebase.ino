@@ -1,3 +1,10 @@
+// ########################################### //
+//                                             //
+//     Ligar botao com pulldown no pino 4.     //
+//     Controle de relé saindo no pino 23.     //
+//                                             //
+// ########################################### //
+
 #include <Arduino.h>
 #include <WiFi.h>
 #include <Firebase_ESP_Client.h>
@@ -16,7 +23,6 @@ FirebaseConfig config;
 
 int counter = 0;
 bool signupOK = false;
-
 int outputPin = 23;
 int buttonPin = 4;
 bool lastReading = 0;
@@ -25,8 +31,6 @@ unsigned long debounceDelay = 200;
 bool toggleState = false;
 bool state = false;
 bool lastState = false;
-
-
 
 void setupWiFi() {
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -47,7 +51,6 @@ void setup() {
 
   pinMode(outputPin, OUTPUT);
 
-
   config.api_key = API_KEY;
   config.database_url = DATABASE_URL;
 
@@ -66,11 +69,6 @@ void setup() {
   Firebase.begin(&config, &auth);
   Firebase.reconnectWiFi(true);
 }
-
-//if (Firebase.ready() && signupOK){
-//    if (Firebase.RTDB.setInt(&fbdo, "counter", counter))
-//    Serial.println("Gravou " + String(counter));
-// }
 
 void readButtonState() {
 int reading = digitalRead(buttonPin);
